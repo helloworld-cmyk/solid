@@ -64,18 +64,9 @@ class WishlistPage extends StatelessWidget {
                                 child: WishlistTabSwitcher(
                                   selectedTab: WishlistTabType.wishlist,
                                   onOrderTap: () {
-                                    final ScaffoldMessengerState messenger =
-                                        ScaffoldMessenger.of(context);
-                                    messenger
-                                      ..hideCurrentSnackBar()
-                                      ..showSnackBar(
-                                        const SnackBar(
-                                          content: Text(
-                                            'My Order feature is coming soon.',
-                                          ),
-                                          behavior: SnackBarBehavior.floating,
-                                        ),
-                                      );
+                                    context.router.navigate(
+                                      const MyOrderRoute(),
+                                    );
                                   },
                                 ),
                               ),
@@ -122,8 +113,8 @@ class WishlistPage extends StatelessWidget {
                                                               CartItem(
                                                                 id: item.id,
                                                                 name: item.name,
-                                                                image:
-                                                                    item.imagePath,
+                                                                image: item
+                                                                    .imagePath,
                                                                 price:
                                                                     item.price,
                                                               ),
@@ -159,9 +150,8 @@ class WishlistPage extends StatelessWidget {
                                                     },
                                                   ),
                                                   if (index !=
-                                                      state.items.length - 1) ...<
-                                                    Widget
-                                                  >[
+                                                      state.items.length -
+                                                          1) ...<Widget>[
                                                     const SizedBox(height: 28),
                                                     const Divider(
                                                       height: 1,
@@ -179,9 +169,7 @@ class WishlistPage extends StatelessWidget {
                               const SizedBox(height: 44),
                               WishlistRecommendationsSection(
                                 products: state.recommendations,
-                                onProductTap: (
-                                  WishlistRecommendation product,
-                                ) {
+                                onProductTap: (WishlistRecommendation product) {
                                   context.router.push(
                                     ProductRoute(
                                       image: product.imagePath,

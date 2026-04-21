@@ -2,14 +2,19 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:solid/core/bloc/address/address_bloc.dart';
+import 'package:solid/core/bloc/address/address_state.dart';
+import 'package:solid/core/bloc/card/card_bloc.dart';
+import 'package:solid/core/bloc/card/card_state.dart';
 import 'package:solid/core/bloc/cart/cart_bloc.dart';
 import 'package:solid/core/bloc/cart/cart_event.dart';
 import 'package:solid/core/bloc/cart/cart_state.dart';
+import 'package:solid/core/bloc/my_order/my_order_bloc.dart';
+import 'package:solid/core/bloc/my_order/my_order_event.dart';
 import 'package:solid/core/di/injection.dart';
 import 'package:solid/core/router/app.router.gr.dart';
 import 'package:solid/core/ui/widget/widgets.dart';
 
-import 'domain/entities/coupon.dart';
 import 'presentation/bloc/checkout_bloc.dart';
 import 'presentation/bloc/checkout_event.dart';
 import 'presentation/bloc/checkout_state.dart';
@@ -33,6 +38,10 @@ class CheckoutPage extends StatelessWidget {
         child: BlocListener<CheckoutBloc, CheckoutState>(
           listener: (BuildContext context, CheckoutState state) {
             if (state.orderPlacedSuccessfully) {
+              final CartState cartState = context.read<CartBloc>().state;
+              context.read<MyOrderBloc>().add(
+                MyOrderPlacedFromCart(cartState.items),
+              );
               context.read<CartBloc>().add(const CartCleared());
               context.read<CheckoutBloc>().add(const CheckoutFeedbackCleared());
               context.router.replace(const CheckoutSuccessRoute());
@@ -99,95 +108,74 @@ class CheckoutPage extends StatelessWidget {
 
                             return BlocBuilder<CartBloc, CartState>(
                               builder: (BuildContext context, CartState cartState) {
-                                final Coupon? appliedCoupon =
-                                    checkoutState.appliedCoupon;
-                                final double discountAmount =
-                                    appliedCoupon?.discountFor(
-                                      cartState.totalAmount,
-                                    ) ??
-                                    0;
-                                final double totalAmount =
-                                    (cartState.totalAmount - discountAmount)
-                                        .clamp(0, double.infinity);
+                                final double totalAmount = cartState.totalAmount
+                                    .clamp(0, double.infinity);
 
-                                return Stack(
-                                  children: <Widget>[
-                                    CheckoutContentSection(
-                                      cartItems: cartState.items,
-                                      order: checkoutState.order!,
-                                      couponInput: checkoutState.couponInput,
-                                      appliedCoupon: appliedCoupon,
-                                      isApplyingCoupon:
-                                          checkoutState.isApplyingCoupon,
-                                      subTotal: cartState.totalAmount,
-                                      discountAmount: discountAmount,
-                                      totalAmount: totalAmount,
-                                      onCouponChanged: (String value) {
-                                        context.read<CheckoutBloc>().add(
-                                          CheckoutCouponInputChanged(value),
-                                        );
-                                      },
-                                      onApplyCoupon: () {
-                                        context.read<CheckoutBloc>().add(
-                                          CheckoutCouponApplyRequested(
-                                            subTotal: cartState.totalAmount,
-                                          ),
-                                        );
-                                      },
-                                      onAddressTap: () {
-                                        final ScaffoldMessengerState messenger =
-                                            ScaffoldMessenger.of(context);
-                                        messenger
-                                          ..hideCurrentSnackBar()
-                                          ..showSnackBar(
-                                            const SnackBar(
-                                              content: Text(
-                                                'Address management feature is coming soon.',
-                                              ),
-                                              behavior:
-                                                  SnackBarBehavior.floating,
-                                            ),
-                                          );
-                                      },
-                                      onPaymentTap: () {
-                                        final ScaffoldMessengerState messenger =
-                                            ScaffoldMessenger.of(context);
-                                        messenger
-                                          ..hideCurrentSnackBar()
-                                          ..showSnackBar(
-                                            const SnackBar(
-                                              content: Text(
-                                                'Payment card feature is coming soon.',
-                                              ),
-                                              behavior:
-                                                  SnackBarBehavior.floating,
-                                            ),
-                                          );
-                                      },
-                                    ),
-                                    Positioned(
-                                      left: 25,
-                                      right: 25,
-                                      bottom:
-                                          MediaQuery.of(
-                                            context,
-                                          ).padding.bottom +
-                                          16,
-                                      child: OrderNowButton(
-                                        enabled:
-                                            cartState.items.isNotEmpty &&
-                                            !checkoutState.isPlacingOrder,
-                                        isLoading: checkoutState.isPlacingOrder,
-                                        onPressed: () {
-                                          context.read<CheckoutBloc>().add(
-                                            CheckoutOrderNowPressed(
+                                return BlocBuilder<AddressBloc, AddressState>(
+                                  builder: (BuildContext context, AddressState addressState) {
+                                    return BlocBuilder<CardBloc, CardState>(
+                                      builder: (BuildContext context, CardState cardState) {
+                                        final String paymentDescription =
+                                            cardState.selectedCard == null
+                                            ? 'Select a payment card'
+                                            : 'Card Ending ****${cardState.selectedCard!.lastFourDigits}';
+
+                                        return Stack(
+                                          children: <Widget>[
+                                            CheckoutContentSection(
+                                              cartItems: cartState.items,
+                                              order: checkoutState.order!,
                                               subTotal: cartState.totalAmount,
+                                              totalAmount: totalAmount,
+                                              selectedAddress:
+                                                  addressState.selectedAddress,
+                                              paymentDescription:
+                                                  paymentDescription,
+                                              onAddressTap: () {
+                                                context.router.push(
+                                                  const AddressListRoute(),
+                                                );
+                                              },
+                                              onPaymentTap: () {
+                                                context.router.push(
+                                                  const PaymentCardListRoute(),
+                                                );
+                                              },
                                             ),
-                                          );
-                                        },
-                                      ),
-                                    ),
-                                  ],
+                                            Positioned(
+                                              left: 25,
+                                              right: 25,
+                                              bottom:
+                                                  MediaQuery.of(
+                                                    context,
+                                                  ).padding.bottom +
+                                                  16,
+                                              child: OrderNowButton(
+                                                enabled:
+                                                    cartState
+                                                        .items
+                                                        .isNotEmpty &&
+                                                    !checkoutState
+                                                        .isPlacingOrder,
+                                                isLoading: checkoutState
+                                                    .isPlacingOrder,
+                                                onPressed: () {
+                                                  context
+                                                      .read<CheckoutBloc>()
+                                                      .add(
+                                                        CheckoutOrderNowPressed(
+                                                          subTotal: cartState
+                                                              .totalAmount,
+                                                        ),
+                                                      );
+                                                },
+                                              ),
+                                            ),
+                                          ],
+                                        );
+                                      },
+                                    );
+                                  },
                                 );
                               },
                             );

@@ -65,18 +65,7 @@ class ProfilePage extends StatelessWidget {
                       const SizedBox(height: 16),
                       QuickActions(
                         onMyOrderTap: () {
-                          final ScaffoldMessengerState messenger =
-                              ScaffoldMessenger.of(context);
-                          messenger
-                            ..hideCurrentSnackBar()
-                            ..showSnackBar(
-                              const SnackBar(
-                                content: Text(
-                                  'My Order feature is coming soon.',
-                                ),
-                                behavior: SnackBarBehavior.floating,
-                              ),
-                            );
+                          context.router.push(const MyOrderRoute());
                         },
                         onWishlistTap: () {
                           context.router.push(const WishlistRoute());
@@ -89,6 +78,9 @@ class ProfilePage extends StatelessWidget {
                         },
                         onNotificationTap: () {
                           context.router.push(const NotificationCenterRoute());
+                        },
+                        onPaymentInformationTap: () {
+                          context.router.push(const PaymentCardListRoute());
                         },
                         onFeatureTap: (String featureName) {
                           final ScaffoldMessengerState messenger =

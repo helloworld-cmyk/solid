@@ -7,12 +7,14 @@ class SettingsList extends StatelessWidget {
     super.key,
     required this.onAccountSettingTap,
     required this.onNotificationTap,
+    required this.onPaymentInformationTap,
     required this.onFeatureTap,
     required this.onSignOutTap,
   });
 
   final VoidCallback onAccountSettingTap;
   final VoidCallback onNotificationTap;
+  final VoidCallback onPaymentInformationTap;
   final ValueChanged<String> onFeatureTap;
   final VoidCallback onSignOutTap;
 
@@ -33,9 +35,7 @@ class SettingsList extends StatelessWidget {
         _SettingItem(
           icon: Icons.payment_outlined,
           label: 'Payment Information',
-          onTap: () {
-            onFeatureTap('Payment Information');
-          },
+          onTap: onPaymentInformationTap,
         ),
         _SettingItem(
           icon: Icons.lock_outline,
@@ -103,7 +103,11 @@ class _SettingItem extends StatelessWidget {
             : ProfileTypography.menuItem,
       ),
       trailing: showArrow
-          ? const Icon(Icons.chevron_right, size: 20, color: ProfileColors.black)
+          ? const Icon(
+              Icons.chevron_right,
+              size: 20,
+              color: ProfileColors.black,
+            )
           : null,
       onTap: onTap,
       contentPadding: const EdgeInsets.symmetric(horizontal: 24),

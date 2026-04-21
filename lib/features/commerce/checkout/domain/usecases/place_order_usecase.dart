@@ -1,4 +1,3 @@
-import '../entities/coupon.dart';
 import '../repositories/checkout_repository.dart';
 
 class PlaceOrderUseCase {
@@ -12,8 +11,7 @@ class PlaceOrderUseCase {
       return const PlaceOrderResult.failure('Your cart is empty.');
     }
 
-    final double discount = params.coupon?.discountFor(params.subTotal) ?? 0;
-    final double totalAmount = (params.subTotal - discount).clamp(
+    final double totalAmount = params.subTotal.clamp(
       0,
       double.infinity,
     );
@@ -28,10 +26,9 @@ class PlaceOrderUseCase {
 }
 
 class PlaceOrderParams {
-  const PlaceOrderParams({required this.subTotal, this.coupon});
+  const PlaceOrderParams({required this.subTotal});
 
   final double subTotal;
-  final Coupon? coupon;
 }
 
 class PlaceOrderResult {

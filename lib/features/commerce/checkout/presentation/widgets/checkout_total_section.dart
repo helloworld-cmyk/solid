@@ -5,12 +5,10 @@ class CheckoutTotalSection extends StatelessWidget {
   const CheckoutTotalSection({
     super.key,
     required this.subTotal,
-    required this.discountAmount,
     required this.totalAmount,
   });
 
   final double subTotal;
-  final double discountAmount;
   final double totalAmount;
 
   @override
@@ -23,13 +21,6 @@ class CheckoutTotalSection extends StatelessWidget {
             title: 'Subtotal',
             value: '\$ ${subTotal.toStringAsFixed(2)}',
             valueColor: const Color(0xFF000000),
-            titleColor: const Color(0xFF666666),
-          ),
-          const SizedBox(height: 10),
-          _SummaryRow(
-            title: 'Discount',
-            value: '- \$ ${discountAmount.toStringAsFixed(2)}',
-            valueColor: const Color(0xFF2E7D32),
             titleColor: const Color(0xFF666666),
           ),
           const SizedBox(height: 16),

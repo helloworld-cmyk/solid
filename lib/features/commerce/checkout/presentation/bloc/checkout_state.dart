@@ -1,5 +1,4 @@
 import '../../domain/entities/checkout_order.dart';
-import '../../domain/entities/coupon.dart';
 
 enum CheckoutStatus { initial, loading, ready, failure }
 
@@ -9,9 +8,6 @@ class CheckoutState {
   const CheckoutState({
     this.status = CheckoutStatus.initial,
     this.order,
-    this.couponInput = '',
-    this.appliedCoupon,
-    this.isApplyingCoupon = false,
     this.isPlacingOrder = false,
     this.errorMessage,
     this.feedbackMessage,
@@ -21,9 +17,6 @@ class CheckoutState {
 
   final CheckoutStatus status;
   final CheckoutOrder? order;
-  final String couponInput;
-  final Coupon? appliedCoupon;
-  final bool isApplyingCoupon;
   final bool isPlacingOrder;
   final String? errorMessage;
   final String? feedbackMessage;
@@ -38,10 +31,6 @@ class CheckoutState {
   CheckoutState copyWith({
     CheckoutStatus? status,
     CheckoutOrder? order,
-    String? couponInput,
-    Coupon? appliedCoupon,
-    bool clearAppliedCoupon = false,
-    bool? isApplyingCoupon,
     bool? isPlacingOrder,
     String? errorMessage,
     bool clearErrorMessage = false,
@@ -53,11 +42,6 @@ class CheckoutState {
     return CheckoutState(
       status: status ?? this.status,
       order: order ?? this.order,
-      couponInput: couponInput ?? this.couponInput,
-      appliedCoupon: clearAppliedCoupon
-          ? null
-          : appliedCoupon ?? this.appliedCoupon,
-      isApplyingCoupon: isApplyingCoupon ?? this.isApplyingCoupon,
       isPlacingOrder: isPlacingOrder ?? this.isPlacingOrder,
       errorMessage: clearErrorMessage
           ? null

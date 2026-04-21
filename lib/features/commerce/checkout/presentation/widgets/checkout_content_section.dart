@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:solid/core/bloc/cart/cart_item.dart';
+import 'package:solid/core/bloc/address/address_model.dart';
 
 import '../../domain/entities/checkout_order.dart';
-import '../../domain/entities/coupon.dart';
 import 'checkout_address_section.dart';
 import 'checkout_stepper.dart';
 import 'checkout_total_section.dart';
@@ -15,30 +15,22 @@ class CheckoutContentSection extends StatelessWidget {
     super.key,
     required this.cartItems,
     required this.order,
-    required this.couponInput,
-    required this.appliedCoupon,
-    required this.isApplyingCoupon,
     required this.subTotal,
-    required this.discountAmount,
     required this.totalAmount,
-    required this.onCouponChanged,
-    required this.onApplyCoupon,
     required this.onAddressTap,
     required this.onPaymentTap,
+    this.selectedAddress,
+    this.paymentDescription,
   });
 
   final List<CartItem> cartItems;
   final CheckoutOrder order;
-  final String couponInput;
-  final Coupon? appliedCoupon;
-  final bool isApplyingCoupon;
   final double subTotal;
-  final double discountAmount;
   final double totalAmount;
-  final ValueChanged<String> onCouponChanged;
-  final VoidCallback onApplyCoupon;
   final VoidCallback onAddressTap;
   final VoidCallback onPaymentTap;
+  final AddressModel? selectedAddress;
+  final String? paymentDescription;
 
   @override
   Widget build(BuildContext context) {
@@ -50,13 +42,15 @@ class CheckoutContentSection extends StatelessWidget {
           const CheckoutStepper(currentStep: 1),
           const SizedBox(height: 32),
           CheckoutAddressSection(
-            title: order.addressTitle,
-            description: order.addressDescription,
+            title: selectedAddress?.name ?? order.addressTitle,
+            description: selectedAddress != null
+                ? '${selectedAddress!.address}\n${selectedAddress!.phone}\n${selectedAddress!.email}'
+                : order.addressDescription,
             onTap: onAddressTap,
           ),
           PaymentMethodSection(
             title: order.paymentTitle,
-            description: order.paymentDescription,
+            description: paymentDescription ?? order.paymentDescription,
             iconAsset: order.paymentIconAsset,
             onTap: onPaymentTap,
           ),
@@ -90,20 +84,11 @@ class CheckoutContentSection extends StatelessWidget {
                   ),
           ),
           CouponSection(
-            couponInput: couponInput,
             placeholder: order.couponPlaceholder,
             applyLabel: order.applyCouponLabel,
-            isApplying: isApplyingCoupon,
-            appliedCouponCode: appliedCoupon?.code,
-            onCouponChanged: onCouponChanged,
-            onApply: onApplyCoupon,
           ),
           const SizedBox(height: 20),
-          CheckoutTotalSection(
-            subTotal: subTotal,
-            discountAmount: discountAmount,
-            totalAmount: totalAmount,
-          ),
+          CheckoutTotalSection(subTotal: subTotal, totalAmount: totalAmount),
           const SizedBox(height: 120),
         ],
       ),

@@ -14,6 +14,11 @@ final List<AutoRoute> userRoutes = [
   AutoRoute(page: NotificationCenterRoute.page, path: '/notifications'),
   AutoRoute(page: ProfileRoute.page, path: '/profile'),
   AutoRoute(page: ChangeProfileRoute.page, path: '/profile/change'),
+  AutoRoute(page: AddressListRoute.page, path: '/profile/address'),
+  AutoRoute(page: AddAddressRoute.page, path: '/profile/address/add'),
+  AutoRoute(page: PaymentCardListRoute.page, path: '/profile/payment-card'),
+  AutoRoute(page: AddPaymentCardRoute.page, path: '/profile/payment-card/add'),
+  AutoRoute(page: MyOrderRoute.page, path: '/profile/my-order'),
   AutoRoute(page: WishlistRoute.page, path: '/wishlist'),
   AutoRoute(page: ProductRoute.page, path: '/product'),
 ];

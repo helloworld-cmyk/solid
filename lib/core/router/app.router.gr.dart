@@ -9,50 +9,103 @@
 // coverage:ignore-file
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
-import 'package:auto_route/auto_route.dart' as _i18;
-import 'package:flutter/material.dart' as _i19;
-import 'package:solid/features/account/change_profile/main.dart' as _i3;
-import 'package:solid/features/account/profile/main.dart' as _i12;
-import 'package:solid/features/auth/login/main.dart' as _i8;
-import 'package:solid/features/auth/register/main.dart' as _i13;
-import 'package:solid/features/catalog/catagories/main.dart' as _i2;
-import 'package:solid/features/catalog/detail_catagories/main.dart' as _i6;
-import 'package:solid/features/catalog/home/main.dart' as _i7;
-import 'package:solid/features/catalog/product/main.dart' as _i11;
-import 'package:solid/features/catalog/search/main.dart' as _i15;
-import 'package:solid/features/catalog/search_filter/main.dart' as _i14;
-import 'package:solid/features/commerce/cart/main.dart' as _i1;
-import 'package:solid/features/commerce/checkout/main.dart' as _i4;
-import 'package:solid/features/commerce/checkout_success/main.dart' as _i5;
+import 'package:auto_route/auto_route.dart' as _i23;
+import 'package:flutter/material.dart' as _i24;
+import 'package:solid/features/account/add_address/main.dart' as _i1;
+import 'package:solid/features/account/add_payment_card/main.dart' as _i2;
+import 'package:solid/features/account/address_list/main.dart' as _i3;
+import 'package:solid/features/account/change_profile/main.dart' as _i6;
+import 'package:solid/features/account/my_order/main.dart' as _i12;
+import 'package:solid/features/account/payment_card_list/main.dart' as _i15;
+import 'package:solid/features/account/profile/main.dart' as _i17;
+import 'package:solid/features/auth/login/main.dart' as _i11;
+import 'package:solid/features/auth/register/main.dart' as _i18;
+import 'package:solid/features/catalog/catagories/main.dart' as _i5;
+import 'package:solid/features/catalog/detail_catagories/main.dart' as _i9;
+import 'package:solid/features/catalog/home/main.dart' as _i10;
+import 'package:solid/features/catalog/product/main.dart' as _i16;
+import 'package:solid/features/catalog/search/main.dart' as _i20;
+import 'package:solid/features/catalog/search_filter/main.dart' as _i19;
+import 'package:solid/features/commerce/cart/main.dart' as _i4;
+import 'package:solid/features/commerce/checkout/main.dart' as _i7;
+import 'package:solid/features/commerce/checkout_success/main.dart' as _i8;
 import 'package:solid/features/notifications/notification_center/main.dart'
-    as _i9;
-import 'package:solid/features/onboarding/onboard/main.dart' as _i10;
-import 'package:solid/features/onboarding/splash/main.dart' as _i16;
-import 'package:solid/features/wishlist/wishlist/main.dart' as _i17;
+    as _i13;
+import 'package:solid/features/onboarding/onboard/main.dart' as _i14;
+import 'package:solid/features/onboarding/splash/main.dart' as _i21;
+import 'package:solid/features/wishlist/wishlist/main.dart' as _i22;
 
 /// generated route for
-/// [_i1.CartPage]
-class CartRoute extends _i18.PageRouteInfo<void> {
-  const CartRoute({List<_i18.PageRouteInfo>? children})
-    : super(CartRoute.name, initialChildren: children);
+/// [_i1.AddAddressPage]
+class AddAddressRoute extends _i23.PageRouteInfo<void> {
+  const AddAddressRoute({List<_i23.PageRouteInfo>? children})
+    : super(AddAddressRoute.name, initialChildren: children);
 
-  static const String name = 'CartRoute';
+  static const String name = 'AddAddressRoute';
 
-  static _i18.PageInfo page = _i18.PageInfo(
+  static _i23.PageInfo page = _i23.PageInfo(
     name,
     builder: (data) {
-      return const _i1.CartPage();
+      return const _i1.AddAddressPage();
     },
   );
 }
 
 /// generated route for
-/// [_i2.CatagoriesPage]
-class CatagoriesRoute extends _i18.PageRouteInfo<CatagoriesRouteArgs> {
+/// [_i2.AddPaymentCardPage]
+class AddPaymentCardRoute extends _i23.PageRouteInfo<void> {
+  const AddPaymentCardRoute({List<_i23.PageRouteInfo>? children})
+    : super(AddPaymentCardRoute.name, initialChildren: children);
+
+  static const String name = 'AddPaymentCardRoute';
+
+  static _i23.PageInfo page = _i23.PageInfo(
+    name,
+    builder: (data) {
+      return const _i2.AddPaymentCardPage();
+    },
+  );
+}
+
+/// generated route for
+/// [_i3.AddressListPage]
+class AddressListRoute extends _i23.PageRouteInfo<void> {
+  const AddressListRoute({List<_i23.PageRouteInfo>? children})
+    : super(AddressListRoute.name, initialChildren: children);
+
+  static const String name = 'AddressListRoute';
+
+  static _i23.PageInfo page = _i23.PageInfo(
+    name,
+    builder: (data) {
+      return const _i3.AddressListPage();
+    },
+  );
+}
+
+/// generated route for
+/// [_i4.CartPage]
+class CartRoute extends _i23.PageRouteInfo<void> {
+  const CartRoute({List<_i23.PageRouteInfo>? children})
+    : super(CartRoute.name, initialChildren: children);
+
+  static const String name = 'CartRoute';
+
+  static _i23.PageInfo page = _i23.PageInfo(
+    name,
+    builder: (data) {
+      return const _i4.CartPage();
+    },
+  );
+}
+
+/// generated route for
+/// [_i5.CatagoriesPage]
+class CatagoriesRoute extends _i23.PageRouteInfo<CatagoriesRouteArgs> {
   CatagoriesRoute({
-    _i19.Key? key,
+    _i24.Key? key,
     String? initialCategory,
-    List<_i18.PageRouteInfo>? children,
+    List<_i23.PageRouteInfo>? children,
   }) : super(
          CatagoriesRoute.name,
          args: CatagoriesRouteArgs(key: key, initialCategory: initialCategory),
@@ -61,13 +114,13 @@ class CatagoriesRoute extends _i18.PageRouteInfo<CatagoriesRouteArgs> {
 
   static const String name = 'CatagoriesRoute';
 
-  static _i18.PageInfo page = _i18.PageInfo(
+  static _i23.PageInfo page = _i23.PageInfo(
     name,
     builder: (data) {
       final args = data.argsAs<CatagoriesRouteArgs>(
         orElse: () => const CatagoriesRouteArgs(),
       );
-      return _i2.CatagoriesPage(
+      return _i5.CatagoriesPage(
         key: args.key,
         initialCategory: args.initialCategory,
       );
@@ -78,7 +131,7 @@ class CatagoriesRoute extends _i18.PageRouteInfo<CatagoriesRouteArgs> {
 class CatagoriesRouteArgs {
   const CatagoriesRouteArgs({this.key, this.initialCategory});
 
-  final _i19.Key? key;
+  final _i24.Key? key;
 
   final String? initialCategory;
 
@@ -99,61 +152,61 @@ class CatagoriesRouteArgs {
 }
 
 /// generated route for
-/// [_i3.ChangeProfilePage]
-class ChangeProfileRoute extends _i18.PageRouteInfo<void> {
-  const ChangeProfileRoute({List<_i18.PageRouteInfo>? children})
+/// [_i6.ChangeProfilePage]
+class ChangeProfileRoute extends _i23.PageRouteInfo<void> {
+  const ChangeProfileRoute({List<_i23.PageRouteInfo>? children})
     : super(ChangeProfileRoute.name, initialChildren: children);
 
   static const String name = 'ChangeProfileRoute';
 
-  static _i18.PageInfo page = _i18.PageInfo(
+  static _i23.PageInfo page = _i23.PageInfo(
     name,
     builder: (data) {
-      return const _i3.ChangeProfilePage();
+      return const _i6.ChangeProfilePage();
     },
   );
 }
 
 /// generated route for
-/// [_i4.CheckoutPage]
-class CheckoutRoute extends _i18.PageRouteInfo<void> {
-  const CheckoutRoute({List<_i18.PageRouteInfo>? children})
+/// [_i7.CheckoutPage]
+class CheckoutRoute extends _i23.PageRouteInfo<void> {
+  const CheckoutRoute({List<_i23.PageRouteInfo>? children})
     : super(CheckoutRoute.name, initialChildren: children);
 
   static const String name = 'CheckoutRoute';
 
-  static _i18.PageInfo page = _i18.PageInfo(
+  static _i23.PageInfo page = _i23.PageInfo(
     name,
     builder: (data) {
-      return const _i4.CheckoutPage();
+      return const _i7.CheckoutPage();
     },
   );
 }
 
 /// generated route for
-/// [_i5.CheckoutSuccessPage]
-class CheckoutSuccessRoute extends _i18.PageRouteInfo<void> {
-  const CheckoutSuccessRoute({List<_i18.PageRouteInfo>? children})
+/// [_i8.CheckoutSuccessPage]
+class CheckoutSuccessRoute extends _i23.PageRouteInfo<void> {
+  const CheckoutSuccessRoute({List<_i23.PageRouteInfo>? children})
     : super(CheckoutSuccessRoute.name, initialChildren: children);
 
   static const String name = 'CheckoutSuccessRoute';
 
-  static _i18.PageInfo page = _i18.PageInfo(
+  static _i23.PageInfo page = _i23.PageInfo(
     name,
     builder: (data) {
-      return const _i5.CheckoutSuccessPage();
+      return const _i8.CheckoutSuccessPage();
     },
   );
 }
 
 /// generated route for
-/// [_i6.DetailCatagoriesPage]
+/// [_i9.DetailCatagoriesPage]
 class DetailCatagoriesRoute
-    extends _i18.PageRouteInfo<DetailCatagoriesRouteArgs> {
+    extends _i23.PageRouteInfo<DetailCatagoriesRouteArgs> {
   DetailCatagoriesRoute({
-    _i19.Key? key,
+    _i24.Key? key,
     required String categoryTitle,
-    List<_i18.PageRouteInfo>? children,
+    List<_i23.PageRouteInfo>? children,
   }) : super(
          DetailCatagoriesRoute.name,
          args: DetailCatagoriesRouteArgs(
@@ -165,11 +218,11 @@ class DetailCatagoriesRoute
 
   static const String name = 'DetailCatagoriesRoute';
 
-  static _i18.PageInfo page = _i18.PageInfo(
+  static _i23.PageInfo page = _i23.PageInfo(
     name,
     builder: (data) {
       final args = data.argsAs<DetailCatagoriesRouteArgs>();
-      return _i6.DetailCatagoriesPage(
+      return _i9.DetailCatagoriesPage(
         key: args.key,
         categoryTitle: args.categoryTitle,
       );
@@ -180,7 +233,7 @@ class DetailCatagoriesRoute
 class DetailCatagoriesRouteArgs {
   const DetailCatagoriesRouteArgs({this.key, required this.categoryTitle});
 
-  final _i19.Key? key;
+  final _i24.Key? key;
 
   final String categoryTitle;
 
@@ -201,78 +254,110 @@ class DetailCatagoriesRouteArgs {
 }
 
 /// generated route for
-/// [_i7.HomePage]
-class HomeRoute extends _i18.PageRouteInfo<void> {
-  const HomeRoute({List<_i18.PageRouteInfo>? children})
+/// [_i10.HomePage]
+class HomeRoute extends _i23.PageRouteInfo<void> {
+  const HomeRoute({List<_i23.PageRouteInfo>? children})
     : super(HomeRoute.name, initialChildren: children);
 
   static const String name = 'HomeRoute';
 
-  static _i18.PageInfo page = _i18.PageInfo(
+  static _i23.PageInfo page = _i23.PageInfo(
     name,
     builder: (data) {
-      return const _i7.HomePage();
+      return const _i10.HomePage();
     },
   );
 }
 
 /// generated route for
-/// [_i8.LoginPage]
-class LoginRoute extends _i18.PageRouteInfo<void> {
-  const LoginRoute({List<_i18.PageRouteInfo>? children})
+/// [_i11.LoginPage]
+class LoginRoute extends _i23.PageRouteInfo<void> {
+  const LoginRoute({List<_i23.PageRouteInfo>? children})
     : super(LoginRoute.name, initialChildren: children);
 
   static const String name = 'LoginRoute';
 
-  static _i18.PageInfo page = _i18.PageInfo(
+  static _i23.PageInfo page = _i23.PageInfo(
     name,
     builder: (data) {
-      return const _i8.LoginPage();
+      return const _i11.LoginPage();
     },
   );
 }
 
 /// generated route for
-/// [_i9.NotificationCenterPage]
-class NotificationCenterRoute extends _i18.PageRouteInfo<void> {
-  const NotificationCenterRoute({List<_i18.PageRouteInfo>? children})
+/// [_i12.MyOrderPage]
+class MyOrderRoute extends _i23.PageRouteInfo<void> {
+  const MyOrderRoute({List<_i23.PageRouteInfo>? children})
+    : super(MyOrderRoute.name, initialChildren: children);
+
+  static const String name = 'MyOrderRoute';
+
+  static _i23.PageInfo page = _i23.PageInfo(
+    name,
+    builder: (data) {
+      return const _i12.MyOrderPage();
+    },
+  );
+}
+
+/// generated route for
+/// [_i13.NotificationCenterPage]
+class NotificationCenterRoute extends _i23.PageRouteInfo<void> {
+  const NotificationCenterRoute({List<_i23.PageRouteInfo>? children})
     : super(NotificationCenterRoute.name, initialChildren: children);
 
   static const String name = 'NotificationCenterRoute';
 
-  static _i18.PageInfo page = _i18.PageInfo(
+  static _i23.PageInfo page = _i23.PageInfo(
     name,
     builder: (data) {
-      return const _i9.NotificationCenterPage();
+      return const _i13.NotificationCenterPage();
     },
   );
 }
 
 /// generated route for
-/// [_i10.OnboardPage]
-class OnboardRoute extends _i18.PageRouteInfo<void> {
-  const OnboardRoute({List<_i18.PageRouteInfo>? children})
+/// [_i14.OnboardPage]
+class OnboardRoute extends _i23.PageRouteInfo<void> {
+  const OnboardRoute({List<_i23.PageRouteInfo>? children})
     : super(OnboardRoute.name, initialChildren: children);
 
   static const String name = 'OnboardRoute';
 
-  static _i18.PageInfo page = _i18.PageInfo(
+  static _i23.PageInfo page = _i23.PageInfo(
     name,
     builder: (data) {
-      return const _i10.OnboardPage();
+      return const _i14.OnboardPage();
     },
   );
 }
 
 /// generated route for
-/// [_i11.ProductPage]
-class ProductRoute extends _i18.PageRouteInfo<ProductRouteArgs> {
+/// [_i15.PaymentCardListPage]
+class PaymentCardListRoute extends _i23.PageRouteInfo<void> {
+  const PaymentCardListRoute({List<_i23.PageRouteInfo>? children})
+    : super(PaymentCardListRoute.name, initialChildren: children);
+
+  static const String name = 'PaymentCardListRoute';
+
+  static _i23.PageInfo page = _i23.PageInfo(
+    name,
+    builder: (data) {
+      return const _i15.PaymentCardListPage();
+    },
+  );
+}
+
+/// generated route for
+/// [_i16.ProductPage]
+class ProductRoute extends _i23.PageRouteInfo<ProductRouteArgs> {
   ProductRoute({
-    _i19.Key? key,
+    _i24.Key? key,
     String? image,
     String? title,
     double? price,
-    List<_i18.PageRouteInfo>? children,
+    List<_i23.PageRouteInfo>? children,
   }) : super(
          ProductRoute.name,
          args: ProductRouteArgs(
@@ -286,13 +371,13 @@ class ProductRoute extends _i18.PageRouteInfo<ProductRouteArgs> {
 
   static const String name = 'ProductRoute';
 
-  static _i18.PageInfo page = _i18.PageInfo(
+  static _i23.PageInfo page = _i23.PageInfo(
     name,
     builder: (data) {
       final args = data.argsAs<ProductRouteArgs>(
         orElse: () => const ProductRouteArgs(),
       );
-      return _i11.ProductPage(
+      return _i16.ProductPage(
         key: args.key,
         image: args.image,
         title: args.title,
@@ -305,7 +390,7 @@ class ProductRoute extends _i18.PageRouteInfo<ProductRouteArgs> {
 class ProductRouteArgs {
   const ProductRouteArgs({this.key, this.image, this.title, this.price});
 
-  final _i19.Key? key;
+  final _i24.Key? key;
 
   final String? image;
 
@@ -334,97 +419,97 @@ class ProductRouteArgs {
 }
 
 /// generated route for
-/// [_i12.ProfilePage]
-class ProfileRoute extends _i18.PageRouteInfo<void> {
-  const ProfileRoute({List<_i18.PageRouteInfo>? children})
+/// [_i17.ProfilePage]
+class ProfileRoute extends _i23.PageRouteInfo<void> {
+  const ProfileRoute({List<_i23.PageRouteInfo>? children})
     : super(ProfileRoute.name, initialChildren: children);
 
   static const String name = 'ProfileRoute';
 
-  static _i18.PageInfo page = _i18.PageInfo(
+  static _i23.PageInfo page = _i23.PageInfo(
     name,
     builder: (data) {
-      return const _i12.ProfilePage();
+      return const _i17.ProfilePage();
     },
   );
 }
 
 /// generated route for
-/// [_i13.RegisterPage]
-class RegisterRoute extends _i18.PageRouteInfo<void> {
-  const RegisterRoute({List<_i18.PageRouteInfo>? children})
+/// [_i18.RegisterPage]
+class RegisterRoute extends _i23.PageRouteInfo<void> {
+  const RegisterRoute({List<_i23.PageRouteInfo>? children})
     : super(RegisterRoute.name, initialChildren: children);
 
   static const String name = 'RegisterRoute';
 
-  static _i18.PageInfo page = _i18.PageInfo(
+  static _i23.PageInfo page = _i23.PageInfo(
     name,
     builder: (data) {
-      return const _i13.RegisterPage();
+      return const _i18.RegisterPage();
     },
   );
 }
 
 /// generated route for
-/// [_i14.SearchFilterPage]
-class SearchFilterRoute extends _i18.PageRouteInfo<void> {
-  const SearchFilterRoute({List<_i18.PageRouteInfo>? children})
+/// [_i19.SearchFilterPage]
+class SearchFilterRoute extends _i23.PageRouteInfo<void> {
+  const SearchFilterRoute({List<_i23.PageRouteInfo>? children})
     : super(SearchFilterRoute.name, initialChildren: children);
 
   static const String name = 'SearchFilterRoute';
 
-  static _i18.PageInfo page = _i18.PageInfo(
+  static _i23.PageInfo page = _i23.PageInfo(
     name,
     builder: (data) {
-      return const _i14.SearchFilterPage();
+      return const _i19.SearchFilterPage();
     },
   );
 }
 
 /// generated route for
-/// [_i15.SearchPage]
-class SearchRoute extends _i18.PageRouteInfo<void> {
-  const SearchRoute({List<_i18.PageRouteInfo>? children})
+/// [_i20.SearchPage]
+class SearchRoute extends _i23.PageRouteInfo<void> {
+  const SearchRoute({List<_i23.PageRouteInfo>? children})
     : super(SearchRoute.name, initialChildren: children);
 
   static const String name = 'SearchRoute';
 
-  static _i18.PageInfo page = _i18.PageInfo(
+  static _i23.PageInfo page = _i23.PageInfo(
     name,
     builder: (data) {
-      return const _i15.SearchPage();
+      return const _i20.SearchPage();
     },
   );
 }
 
 /// generated route for
-/// [_i16.SplashPage]
-class SplashRoute extends _i18.PageRouteInfo<void> {
-  const SplashRoute({List<_i18.PageRouteInfo>? children})
+/// [_i21.SplashPage]
+class SplashRoute extends _i23.PageRouteInfo<void> {
+  const SplashRoute({List<_i23.PageRouteInfo>? children})
     : super(SplashRoute.name, initialChildren: children);
 
   static const String name = 'SplashRoute';
 
-  static _i18.PageInfo page = _i18.PageInfo(
+  static _i23.PageInfo page = _i23.PageInfo(
     name,
     builder: (data) {
-      return const _i16.SplashPage();
+      return const _i21.SplashPage();
     },
   );
 }
 
 /// generated route for
-/// [_i17.WishlistPage]
-class WishlistRoute extends _i18.PageRouteInfo<void> {
-  const WishlistRoute({List<_i18.PageRouteInfo>? children})
+/// [_i22.WishlistPage]
+class WishlistRoute extends _i23.PageRouteInfo<void> {
+  const WishlistRoute({List<_i23.PageRouteInfo>? children})
     : super(WishlistRoute.name, initialChildren: children);
 
   static const String name = 'WishlistRoute';
 
-  static _i18.PageInfo page = _i18.PageInfo(
+  static _i23.PageInfo page = _i23.PageInfo(
     name,
     builder: (data) {
-      return const _i17.WishlistPage();
+      return const _i22.WishlistPage();
     },
   );
 }

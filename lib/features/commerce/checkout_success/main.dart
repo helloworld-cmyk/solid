@@ -51,7 +51,7 @@ class CheckoutSuccessPage extends StatelessWidget {
                 height: 42,
                 child: ElevatedButton(
                   onPressed: () {
-                    context.router.replaceAll([const HomeRoute()]);
+                    context.router.replaceAll([const HomeRoute(), const MyOrderRoute()]);
                   },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: const Color(0xFFFF6A2B),
@@ -61,7 +61,7 @@ class CheckoutSuccessPage extends StatelessWidget {
                     elevation: 0,
                   ),
                   child: Text(
-                    'CONTINUE SHOPPING',
+                    'MY ORDERS',
                     style: GoogleFonts.poppins(
                       fontSize: 13,
                       fontWeight: FontWeight.w600,
@@ -76,7 +76,7 @@ class CheckoutSuccessPage extends StatelessWidget {
                 height: 42,
                 child: OutlinedButton(
                   onPressed: () {
-                    context.router.replace(const CartRoute());
+                    context.router.replaceAll([const HomeRoute()]);
                   },
                   style: OutlinedButton.styleFrom(
                     side: const BorderSide(color: Color(0xFFE8E8E8)),
@@ -85,7 +85,7 @@ class CheckoutSuccessPage extends StatelessWidget {
                     ),
                   ),
                   child: Text(
-                    'BACK TO CART',
+                    'CONTINUE SHOPPING',
                     style: GoogleFonts.poppins(
                       fontSize: 12,
                       fontWeight: FontWeight.w500,

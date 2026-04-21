@@ -4,7 +4,6 @@ import '../data/datasources/checkout_data_source.dart';
 import '../data/datasources/checkout_data_source_impl.dart';
 import '../data/repositories/checkout_repository_impl.dart';
 import '../domain/repositories/checkout_repository.dart';
-import '../domain/usecases/apply_coupon_usecase.dart';
 import '../domain/usecases/get_checkout_order_usecase.dart';
 import '../domain/usecases/place_order_usecase.dart';
 import '../presentation/bloc/checkout_bloc.dart';
@@ -31,12 +30,6 @@ class CheckoutInjection {
       );
     }
 
-    if (!getIt.isRegistered<ApplyCouponUseCase>()) {
-      getIt.registerLazySingleton<ApplyCouponUseCase>(
-        () => ApplyCouponUseCase(repository: getIt<CheckoutRepository>()),
-      );
-    }
-
     if (!getIt.isRegistered<PlaceOrderUseCase>()) {
       getIt.registerLazySingleton<PlaceOrderUseCase>(
         () => PlaceOrderUseCase(repository: getIt<CheckoutRepository>()),
@@ -47,7 +40,6 @@ class CheckoutInjection {
       getIt.registerFactory<CheckoutBloc>(
         () => CheckoutBloc(
           getCheckoutOrderUseCase: getIt<GetCheckoutOrderUseCase>(),
-          applyCouponUseCase: getIt<ApplyCouponUseCase>(),
           placeOrderUseCase: getIt<PlaceOrderUseCase>(),
         ),
       );

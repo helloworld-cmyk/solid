@@ -6,6 +6,9 @@ import 'package:solid/core/bloc/auth/auth_event.dart';
 import 'package:solid/core/bloc/auth/auth_state.dart';
 import 'package:solid/core/bloc/cart/cart_bloc.dart';
 import 'package:solid/core/bloc/wishlist/wishlist_bloc.dart';
+import 'package:solid/core/bloc/address/address_bloc.dart';
+import 'package:solid/core/bloc/card/card_bloc.dart';
+import 'package:solid/core/bloc/my_order/my_order_bloc.dart';
 import 'package:solid/core/di/injection.dart';
 import 'package:solid/core/router/app.router.dart';
 
@@ -25,15 +28,12 @@ class MyApp extends StatelessWidget {
         BlocProvider<AuthBloc>(
           create: (_) => sl<AuthBloc>()..add(const AuthStatusRequested()),
         ),
-        BlocProvider<GlobalProfileBloc>(
-          create: (_) => sl<GlobalProfileBloc>(),
-        ),
-        BlocProvider<CartBloc>(
-          create: (_) => sl<CartBloc>(),
-        ),
-        BlocProvider<WishlistBloc>(
-          create: (_) => sl<WishlistBloc>(),
-        ),
+        BlocProvider<GlobalProfileBloc>(create: (_) => sl<GlobalProfileBloc>()),
+        BlocProvider<CartBloc>(create: (_) => sl<CartBloc>()),
+        BlocProvider<WishlistBloc>(create: (_) => sl<WishlistBloc>()),
+        BlocProvider<AddressBloc>(create: (_) => sl<AddressBloc>()),
+        BlocProvider<CardBloc>(create: (_) => sl<CardBloc>()),
+        BlocProvider<MyOrderBloc>(create: (_) => sl<MyOrderBloc>()),
       ],
       child: BlocBuilder<AuthBloc, AuthState>(
         builder: (BuildContext context, AuthState state) {
