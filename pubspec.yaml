@@ -39,6 +39,10 @@ dependencies:
   auto_route: ^10.1.0
   auto_route_generator: ^10.2.3
   get_it: ^8.0.2
+  image_picker: ^1.2.2
+  crop_image: ^1.0.17
+  flutter_image_compress: ^2.4.0
+  path_provider: ^2.1.5
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
