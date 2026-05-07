@@ -1,4 +1,5 @@
 export 'app_bottom_nav_bar.dart';
+export 'avatar_action_sheet.dart';
 export 'common_bottom_tab_bar.dart';
 export 'common_page_header.dart';
 export 'common_load_error.dart';
