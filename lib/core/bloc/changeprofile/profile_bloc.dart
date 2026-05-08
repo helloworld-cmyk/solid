@@ -6,6 +6,7 @@ import 'profile_state.dart';
 class GlobalProfileBloc extends Bloc<GlobalProfileEvent, GlobalProfileState> {
   GlobalProfileBloc() : super(const GlobalProfileState()) {
     on<GlobalProfileFieldChanged>(_onFieldChanged);
+    on<GlobalProfileAvatarChanged>(_onAvatarChanged);
   }
 
   void _onFieldChanged(
@@ -43,5 +44,12 @@ class GlobalProfileBloc extends Bloc<GlobalProfileEvent, GlobalProfileState> {
         emit(state.copyWith(region: value));
         return;
     }
+  }
+
+  void _onAvatarChanged(
+    GlobalProfileAvatarChanged event,
+    Emitter<GlobalProfileState> emit,
+  ) {
+    emit(state.copyWith(avatarPath: event.avatarPath));
   }
 }

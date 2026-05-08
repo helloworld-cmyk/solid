@@ -1,10 +1,12 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 
+typedef AvatarActionCallback = Future<void> Function();
+
 Future<void> showAvatarActionSheet(
   BuildContext context, {
-  VoidCallback? onCameraTap,
-  VoidCallback? onGalleryTap,
+  AvatarActionCallback? onCameraTap,
+  AvatarActionCallback? onGalleryTap,
 }) {
   return showModalBottomSheet<void>(
     context: context,
@@ -35,8 +37,8 @@ class AvatarActionSheet extends StatelessWidget {
   final String title;
   final String cameraLabel;
   final String galleryLabel;
-  final VoidCallback? onCameraTap;
-  final VoidCallback? onGalleryTap;
+  final AvatarActionCallback? onCameraTap;
+  final AvatarActionCallback? onGalleryTap;
 
   @override
   Widget build(BuildContext context) {
@@ -46,7 +48,7 @@ class AvatarActionSheet extends StatelessWidget {
 
     final TextStyle titleStyle =
         textTheme.titleMedium?.copyWith(fontWeight: FontWeight.w600) ??
-            const TextStyle(fontSize: 16, fontWeight: FontWeight.w600);
+        const TextStyle(fontSize: 16, fontWeight: FontWeight.w600);
 
     final TextStyle itemStyle =
         textTheme.bodyMedium ?? const TextStyle(fontSize: 14);
@@ -74,9 +76,9 @@ class AvatarActionSheet extends StatelessWidget {
               dense: true,
               leading: Icon(Icons.photo_camera_outlined, color: iconColor),
               title: Text(cameraLabel, style: itemStyle),
-              onTap: () {
-                onCameraTap?.call();
-                context.router.maybePop();
+              onTap: () async {
+                await context.router.maybePop();
+                await onCameraTap?.call();
               },
             ),
             Divider(color: dividerColor, height: 1),
@@ -85,9 +87,9 @@ class AvatarActionSheet extends StatelessWidget {
               dense: true,
               leading: Icon(Icons.photo_library_outlined, color: iconColor),
               title: Text(galleryLabel, style: itemStyle),
-              onTap: () {
-                onGalleryTap?.call();
-                context.router.maybePop();
+              onTap: () async {
+                await context.router.maybePop();
+                await onGalleryTap?.call();
               },
             ),
           ],

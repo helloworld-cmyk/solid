@@ -18,3 +18,9 @@ final class GlobalProfileFieldChanged extends GlobalProfileEvent {
   final ProfileField field;
   final String value;
 }
+
+final class GlobalProfileAvatarChanged extends GlobalProfileEvent {
+  const GlobalProfileAvatarChanged({required this.avatarPath});
+
+  final String avatarPath;
+}

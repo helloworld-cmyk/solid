@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:solid/core/ui/widget/widgets.dart';
+import 'package:solid/core/utils/avatar_action_handler.dart';
+import 'package:solid/core/utils/avatar_picker.dart';
 
 import '../../change_profile_style.dart';
 
@@ -21,30 +23,22 @@ class ProfileIdentitySection extends StatelessWidget {
       children: <Widget>[
         GestureDetector(
           onTap: () {
-            showAvatarActionSheet(context);
+            showAvatarActionSheet(
+              context,
+              onCameraTap: () =>
+                  handleAvatarPick(context, AvatarPickSource.camera),
+              onGalleryTap: () =>
+                  handleAvatarPick(context, AvatarPickSource.gallery),
+            );
           },
           child: Stack(
             clipBehavior: Clip.none,
             children: <Widget>[
-              Container(
-                width: 62,
-                height: 62,
-                decoration: const BoxDecoration(shape: BoxShape.circle),
-                child: ClipOval(
-                  child: Image.asset(
-                    avatarPath,
-                    fit: BoxFit.cover,
-                    errorBuilder: (_, _, _) => Container(
-                      color: const Color(0xFFF0F0F0),
-                      alignment: Alignment.center,
-                      child: const Icon(
-                        Icons.person,
-                        color: ChangeProfileColors.mediumGray,
-                        size: 28,
-                      ),
-                    ),
-                  ),
-                ),
+              CommonAvatarImage(
+                avatarPath: avatarPath,
+                size: 62,
+                fallbackIconColor: ChangeProfileColors.mediumGray,
+                fallbackIconSize: 28,
               ),
               Positioned(
                 right: -1,

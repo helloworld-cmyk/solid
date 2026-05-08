@@ -1,7 +1,5 @@
 import 'dart:io';
 
-import 'package:flutter/widgets.dart';
-
 import '../database/database.interface.dart';
 
 class UserService {
@@ -9,10 +7,7 @@ class UserService {
 
   UserService({required this.database});
 
-  Future<String> saveAvatar({
-    required String email,
-    required File imageFile,
-  }) {
+  Future<String> saveAvatar({required String email, required File imageFile}) {
     final normalizedEmail = email.trim().toLowerCase();
     return database.saveAvatarFile(
       normalizedEmail: normalizedEmail,
@@ -20,17 +15,18 @@ class UserService {
     );
   }
 
-  Future<Image?> getAvatar({required String email}) async {
+  Future<String?> getAvatar({required String email}) async {
     final normalizedEmail = email.trim().toLowerCase();
-    final avatarPath =
-        await database.getAvatarPath(normalizedEmail: normalizedEmail);
+    final avatarPath = await database.getAvatarPath(
+      normalizedEmail: normalizedEmail,
+    );
 
     if (avatarPath == null || avatarPath.isEmpty) {
       return null;
     }
 
     if (avatarPath.startsWith('assets/')) {
-      return Image.asset(avatarPath);
+      return avatarPath;
     }
 
     final file = File(avatarPath);
@@ -38,6 +34,6 @@ class UserService {
       return null;
     }
 
-    return Image.file(file);
+    return avatarPath;
   }
 }

@@ -1,6 +1,4 @@
 import 'dart:io';
-
-import 'package:flutter/widgets.dart';
 import 'package:solid/phakeBE/auth/auth_repository.dart';
 import 'package:solid/phakeBE/auth/auth.service.dart';
 import 'package:solid/phakeBE/database/database.interface.dart';
@@ -53,15 +51,12 @@ class PhakeBE implements PhakeBEInterface {
   }
 
   @override
-  Future<String> saveAvatar({
-    required String email,
-    required File imageFile,
-  }) {
+  Future<String> saveAvatar({required String email, required File imageFile}) {
     return user.saveAvatar(email: email, imageFile: imageFile);
   }
 
   @override
-  Future<Image?> getAvatar({required String email}) {
+  Future<String?> getAvatar({required String email}) {
     return user.getAvatar(email: email);
   }
 }

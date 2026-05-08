@@ -3,6 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:solid/core/bloc/changeprofile/profile_bloc.dart';
 import 'package:solid/core/bloc/changeprofile/profile_state.dart';
 import 'package:solid/core/ui/widget/widgets.dart';
+import 'package:solid/core/utils/avatar_action_handler.dart';
+import 'package:solid/core/utils/avatar_picker.dart';
 
 import '../../profile_typography.dart';
 
@@ -19,31 +21,21 @@ class ProfileHeader extends StatelessWidget {
             children: <Widget>[
               GestureDetector(
                 onTap: () {
-                  showAvatarActionSheet(context);
+                  showAvatarActionSheet(
+                    context,
+                    onCameraTap: () =>
+                        handleAvatarPick(context, AvatarPickSource.camera),
+                    onGalleryTap: () =>
+                        handleAvatarPick(context, AvatarPickSource.gallery),
+                  );
                 },
                 child: Stack(
                   children: <Widget>[
-                    Container(
-                      width: 80,
-                      height: 80,
-                      decoration: const BoxDecoration(shape: BoxShape.circle),
-                      child: ClipOval(
-                        child: Image.asset(
-                          state.avatarPath,
-                          fit: BoxFit.cover,
-                          errorBuilder: (_, _, _) {
-                            return Container(
-                              color: const Color(0xFFF0F0F0),
-                              alignment: Alignment.center,
-                              child: const Icon(
-                                Icons.person,
-                                color: ProfileColors.mediumGray,
-                                size: 36,
-                              ),
-                            );
-                          },
-                        ),
-                      ),
+                    CommonAvatarImage(
+                      avatarPath: state.avatarPath,
+                      size: 80,
+                      fallbackIconColor: ProfileColors.mediumGray,
+                      fallbackIconSize: 36,
                     ),
                     Positioned(
                       right: 0,
