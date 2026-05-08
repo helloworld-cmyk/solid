@@ -51,26 +51,31 @@ class CommonPageHeader extends StatelessWidget {
           _horizontalPadding,
           _bottomPadding,
         ),
-        child: Row(
+        child: Stack(                              // ← đổi Row thành Stack
+          alignment: Alignment.center,
           children: <Widget>[
-            SizedBox(width: 40, height: 40, child: leadingWidget),
-            Expanded(
-              child: Text(
-                title,
-                textAlign: TextAlign.center,
-                style: GoogleFonts.bebasNeue(
-                  fontSize: 20,
-                  fontWeight: FontWeight.w400,
-                  color: const Color(0xFF000000),
-                  letterSpacing: 0.4,
-                ),
+            // Title luôn căn giữa tuyệt đối
+            Text(
+              title,
+              textAlign: TextAlign.center,
+              style: GoogleFonts.bebasNeue(
+                fontSize: 20,
+                fontWeight: FontWeight.w400,
+                color: const Color(0xFF000000),
+                letterSpacing: 0.4,
               ),
             ),
-            SizedBox(
-              width: actions != null ? null : 40,
+            // Leading cố định bên trái
+            Align(
+              alignment: Alignment.centerLeft,
+              child: SizedBox(width: 40, height: 40, child: leadingWidget),
+            ),
+            // Actions cố định bên phải
+            Align(
+              alignment: Alignment.centerRight,
               child: actions != null
                   ? Row(mainAxisSize: MainAxisSize.min, children: actions!)
-                  : const SizedBox.shrink(),
+                  : const SizedBox(width: 40),
             ),
           ],
         ),
