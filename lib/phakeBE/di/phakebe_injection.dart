@@ -8,6 +8,9 @@ import 'package:solid/phakeBE/database/database.interface.dart';
 import 'package:solid/phakeBE/database/realmservice.dart';
 import 'package:solid/phakeBE/main.dart';
 import 'package:solid/phakeBE/main.interface.dart';
+import 'package:solid/phakeBE/user/user.controller.dart';
+import 'package:solid/phakeBE/user/user_repository.dart';
+import 'package:solid/phakeBE/user/user.service.dart';
 
 void registerPhakeBEDependencies(GetIt getIt) {
   if (getIt.isRegistered<PhakeBEInterface>()) {
@@ -28,8 +31,17 @@ void registerPhakeBEDependencies(GetIt getIt) {
   getIt.registerLazySingleton<AuthRepository>(
     () => AuthController(getIt<AuthService>()),
   );
+  getIt.registerLazySingleton<UserService>(
+    () => UserService(database: getIt<AuthDatabase>()),
+  );
+  getIt.registerLazySingleton<UserRepository>(
+    () => UserController(getIt<UserService>()),
+  );
   getIt.registerLazySingleton<PhakeBEInterface>(
-    () =>
-        PhakeBE(database: getIt<AuthDatabase>(), auth: getIt<AuthRepository>()),
+    () => PhakeBE(
+      database: getIt<AuthDatabase>(),
+      auth: getIt<AuthRepository>(),
+      user: getIt<UserRepository>(),
+    ),
   );
 }

@@ -1,14 +1,24 @@
+import 'dart:io';
+
+import 'package:flutter/widgets.dart';
 import 'package:solid/phakeBE/auth/auth_repository.dart';
 import 'package:solid/phakeBE/auth/auth.service.dart';
 import 'package:solid/phakeBE/database/database.interface.dart';
 import 'package:solid/phakeBE/main.interface.dart';
+import 'package:solid/phakeBE/user/user_repository.dart';
 
 class PhakeBE implements PhakeBEInterface {
-  PhakeBE({required AuthDatabase database, required this.auth})
-    : _database = database;
+  PhakeBE({
+    required AuthDatabase database,
+    required this.auth,
+    required this.user,
+  }) : _database = database;
 
   @override
   final AuthRepository auth;
+
+  @override
+  final UserRepository user;
 
   final AuthDatabase _database;
 
@@ -40,5 +50,18 @@ class PhakeBE implements PhakeBEInterface {
       lastName: lastName,
       phoneNumber: phoneNumber,
     );
+  }
+
+  @override
+  Future<String> saveAvatar({
+    required String email,
+    required File imageFile,
+  }) {
+    return user.saveAvatar(email: email, imageFile: imageFile);
+  }
+
+  @override
+  Future<Image?> getAvatar({required String email}) {
+    return user.getAvatar(email: email);
   }
 }

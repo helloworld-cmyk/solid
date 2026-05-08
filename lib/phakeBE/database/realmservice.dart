@@ -1,3 +1,6 @@
+import 'dart:io';
+import 'package:path/path.dart' as p;
+import 'package:path_provider/path_provider.dart';
 import 'package:realm/realm.dart';
 
 import 'database.interface.dart';
@@ -26,6 +29,7 @@ class RealmService implements AuthDatabase {
       firstName: user.firstName,
       lastName: user.lastName,
       phoneNumber: user.phoneNumber,
+      avatarPath: user.avatarPath,
     );
   }
 
@@ -38,11 +42,77 @@ class RealmService implements AuthDatabase {
       user.firstName,
       user.lastName,
       user.phoneNumber,
+      avatarPath: user.avatarPath,
     );
 
     _realm.write(() {
       _realm.add(realmUser);
     });
+  }
+
+  void _persistAvatarPathToRealm({
+    required String normalizedEmail,
+    required String avatarPath,
+  }) {
+    final users = _realm.query<User>(r'email == $0', [normalizedEmail]);
+    if (users.isEmpty) {
+      return;
+    }
+
+    _realm.write(() {
+      users.first.avatarPath = avatarPath;
+    });
+  }
+
+  @override
+  Future<String> saveAvatarFile({
+    required String normalizedEmail,
+    required File imageFile,
+  }) async {
+    final appDir = await getApplicationDocumentsDirectory();
+    final avatarDir = Directory(p.join(appDir.path, 'avatars'));
+
+    if (!await avatarDir.exists()) {
+      await avatarDir.create(recursive: true);
+    }
+
+    final safeEmail =
+        normalizedEmail.replaceAll(RegExp(r'[^a-z0-9]'), '_');
+    final extension = p.extension(imageFile.path).isEmpty
+        ? '.jpg'
+        : p.extension(imageFile.path);
+    final fileName = 'avatar_$safeEmail$extension';
+    final fullPath = p.join(avatarDir.path, fileName);
+
+    final savedFile = await imageFile.copy(fullPath);
+
+    _persistAvatarPathToRealm(
+      normalizedEmail: normalizedEmail,
+      avatarPath: savedFile.path,
+    );
+
+    return savedFile.path;
+  }
+
+  @override
+  Future<String?> getAvatarPath({required String normalizedEmail}) async {
+    final user = findUserByEmail(normalizedEmail);
+    final avatarPath = user?.avatarPath;
+
+    if (avatarPath == null || avatarPath.isEmpty) {
+      return null;
+    }
+
+    if (avatarPath.startsWith('assets/')) {
+      return avatarPath;
+    }
+
+    final file = File(avatarPath);
+    if (!await file.exists()) {
+      return null;
+    }
+
+    return avatarPath;
   }
 
   @override

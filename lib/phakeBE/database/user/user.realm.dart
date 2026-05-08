@@ -16,14 +16,16 @@ class User extends _User with RealmEntity, RealmObjectBase, RealmObject {
     String passwordHash,
     String firstName,
     String lastName,
-    String phoneNumber,
-  ) {
+    String phoneNumber, {
+    String? avatarPath,
+  }) {
     RealmObjectBase.set(this, 'id', id);
     RealmObjectBase.set(this, 'email', email);
     RealmObjectBase.set(this, 'passwordHash', passwordHash);
     RealmObjectBase.set(this, 'firstName', firstName);
     RealmObjectBase.set(this, 'lastName', lastName);
     RealmObjectBase.set(this, 'phoneNumber', phoneNumber);
+    RealmObjectBase.set(this, 'avatarPath', avatarPath);
   }
 
   User._();
@@ -65,6 +67,13 @@ class User extends _User with RealmEntity, RealmObjectBase, RealmObject {
       RealmObjectBase.set(this, 'phoneNumber', value);
 
   @override
+  String? get avatarPath =>
+      RealmObjectBase.get<String>(this, 'avatarPath') as String?;
+  @override
+  set avatarPath(String? value) =>
+      RealmObjectBase.set(this, 'avatarPath', value);
+
+  @override
   Stream<RealmObjectChanges<User>> get changes =>
       RealmObjectBase.getChanges<User>(this);
 
@@ -83,6 +92,7 @@ class User extends _User with RealmEntity, RealmObjectBase, RealmObject {
       'firstName': firstName.toEJson(),
       'lastName': lastName.toEJson(),
       'phoneNumber': phoneNumber.toEJson(),
+      'avatarPath': avatarPath.toEJson(),
     };
   }
 
@@ -105,6 +115,7 @@ class User extends _User with RealmEntity, RealmObjectBase, RealmObject {
           fromEJson(firstName),
           fromEJson(lastName),
           fromEJson(phoneNumber),
+          avatarPath: fromEJson(ejson['avatarPath']),
         ),
       _ => raiseInvalidEJson(ejson),
     };
@@ -120,6 +131,7 @@ class User extends _User with RealmEntity, RealmObjectBase, RealmObject {
       SchemaProperty('firstName', RealmPropertyType.string),
       SchemaProperty('lastName', RealmPropertyType.string),
       SchemaProperty('phoneNumber', RealmPropertyType.string),
+      SchemaProperty('avatarPath', RealmPropertyType.string, optional: true),
     ]);
   }();
 

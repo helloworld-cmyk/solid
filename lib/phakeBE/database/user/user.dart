@@ -10,4 +10,5 @@ class _User {
   late String firstName;
   late String lastName;
   late String phoneNumber;
+  String? avatarPath;
 }
