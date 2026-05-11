@@ -1,4 +1,4 @@
-import 'dart:io';
+import 'dart:typed_data';
 
 class DbUserRecord {
   const DbUserRecord({
@@ -25,9 +25,9 @@ abstract class AuthDatabase {
 
   void createUser(DbUserRecord user);
 
-  Future<String> saveAvatarFile({
+  Future<String> saveAvatarBytes({
     required String normalizedEmail,
-    required File imageFile,
+    required Uint8List imageBytes,
   });
 
   Future<String?> getAvatarPath({required String normalizedEmail});

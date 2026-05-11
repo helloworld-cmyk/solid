@@ -6,14 +6,32 @@ import 'package:solid/core/bloc/changeprofile/profile_bloc.dart';
 import 'package:solid/core/bloc/changeprofile/profile_event.dart';
 import 'package:solid/core/bloc/changeprofile/profile_state.dart';
 import 'package:solid/core/ui/widget/widgets.dart';
+import 'package:solid/core/utils/profile_avatar_refresher.dart';
 
 import 'change_profile_style.dart';
 import 'presentation/widgets/profile_detail_row.dart';
 import 'presentation/widgets/profile_identity_section.dart';
 
 @RoutePage()
-class ChangeProfilePage extends StatelessWidget {
+class ChangeProfilePage extends StatefulWidget {
   const ChangeProfilePage({super.key});
+
+  @override
+  State<ChangeProfilePage> createState() => _ChangeProfilePageState();
+}
+
+class _ChangeProfilePageState extends State<ChangeProfilePage> {
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (!mounted) {
+        return;
+      }
+
+      requestProfileAvatarFromBackend(context);
+    });
+  }
 
   @override
   Widget build(BuildContext context) {

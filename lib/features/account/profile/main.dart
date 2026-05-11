@@ -6,6 +6,7 @@ import 'package:solid/core/bloc/auth/auth_bloc.dart';
 import 'package:solid/core/bloc/auth/auth_event.dart';
 import 'package:solid/core/router/app.router.gr.dart';
 import 'package:solid/core/ui/widget/widgets.dart';
+import 'package:solid/core/utils/profile_avatar_refresher.dart';
 
 import 'presentation/widgets/profile_header.dart';
 import 'presentation/widgets/quick_actions.dart';
@@ -13,8 +14,25 @@ import 'presentation/widgets/settings_list.dart';
 import 'profile_typography.dart';
 
 @RoutePage()
-class ProfilePage extends StatelessWidget {
+class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});
+
+  @override
+  State<ProfilePage> createState() => _ProfilePageState();
+}
+
+class _ProfilePageState extends State<ProfilePage> {
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (!mounted) {
+        return;
+      }
+
+      requestProfileAvatarFromBackend(context);
+    });
+  }
 
   @override
   Widget build(BuildContext context) {

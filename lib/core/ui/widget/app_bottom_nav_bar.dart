@@ -2,6 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:solid/core/bloc/cart/cart_bloc.dart';
+import 'package:solid/core/bloc/changeprofile/profile_bloc.dart';
 import 'package:solid/core/router/app.router.gr.dart';
 
 import 'common_bottom_tab_bar.dart';
@@ -39,7 +40,7 @@ class AppBottomNavBar extends StatelessWidget {
 
   final int selectedIndex;
 
-  List<AppBottomNavTabConfig> _buildTabs(int cartQuantity) {
+  List<AppBottomNavTabConfig> _buildTabs(int cartQuantity, String avatarPath) {
     return <AppBottomNavTabConfig>[
       const AppBottomNavTabConfig(
         icon: Icons.home_filled,
@@ -62,12 +63,12 @@ class AppBottomNavBar extends StatelessWidget {
         label: 'Search',
         route: SearchRoute(),
       ),
-      const AppBottomNavTabConfig(
+      AppBottomNavTabConfig(
         icon: Icons.account_circle,
         label: 'Account',
         route: ProfileRoute(),
         hasAvatarRing: true,
-        avatarImagePath: 'assets/home/maskgroup2.png',
+        avatarImagePath: avatarPath,
       ),
     ];
   }
@@ -77,7 +78,13 @@ class AppBottomNavBar extends StatelessWidget {
     final int cartQuantity = context.select(
       (CartBloc bloc) => bloc.state.totalQuantity,
     );
-    final List<AppBottomNavTabConfig> tabs = _buildTabs(cartQuantity);
+    final String avatarPath = context.select(
+      (GlobalProfileBloc bloc) => bloc.state.avatarPath,
+    );
+    final List<AppBottomNavTabConfig> tabs = _buildTabs(
+      cartQuantity,
+      avatarPath,
+    );
 
     return CommonBottomTabBar(
       tabs: tabs

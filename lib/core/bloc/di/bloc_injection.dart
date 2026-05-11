@@ -6,6 +6,7 @@ import 'package:solid/features/wishlist/wishlist/domain/usecases/add_wishlist_it
 import 'package:solid/features/wishlist/wishlist/domain/usecases/get_wishlist_items_usecase.dart';
 import 'package:solid/features/wishlist/wishlist/domain/usecases/get_wishlist_recommendations_usecase.dart';
 import 'package:solid/features/wishlist/wishlist/domain/usecases/remove_wishlist_item_usecase.dart';
+import 'package:solid/phakeBE/main.interface.dart';
 
 import '../changeprofile/profile_bloc.dart';
 import '../auth/auth_bloc.dart';
@@ -28,7 +29,9 @@ class BlocInjection {
     }
 
     if (!getIt.isRegistered<GlobalProfileBloc>()) {
-      getIt.registerLazySingleton<GlobalProfileBloc>(GlobalProfileBloc.new);
+      getIt.registerLazySingleton<GlobalProfileBloc>(
+        () => GlobalProfileBloc(phakeBE: getIt<PhakeBEInterface>()),
+      );
     }
 
     if (!getIt.isRegistered<AddressBloc>()) {

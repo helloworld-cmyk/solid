@@ -1,4 +1,4 @@
-import 'dart:io';
+import 'dart:typed_data';
 
 import 'auth/auth_repository.dart';
 import 'auth/auth.service.dart' show AuthSignInResult, AuthSignUpResult;
@@ -21,7 +21,10 @@ abstract class PhakeBEInterface {
     required String phoneNumber,
   });
 
-  Future<String> saveAvatar({required String email, required File imageFile});
+  Future<String> saveAvatar({
+    required String email,
+    required Uint8List imageBytes,
+  });
 
   Future<String?> getAvatar({required String email});
 

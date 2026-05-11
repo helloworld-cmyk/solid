@@ -3,9 +3,10 @@ sealed class CropAvatarEvent {
 }
 
 final class CropAvatarInitialized extends CropAvatarEvent {
-  const CropAvatarInitialized({required this.imagePath});
+  const CropAvatarInitialized({required this.imagePath, required this.email});
 
   final String imagePath;
+  final String email;
 }
 
 final class CropAvatarSavePressed extends CropAvatarEvent {

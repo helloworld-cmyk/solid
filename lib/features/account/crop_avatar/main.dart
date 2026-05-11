@@ -2,6 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
+import 'package:solid/core/bloc/changeprofile/profile_bloc.dart';
 import 'package:solid/core/ui/widget/widgets.dart';
 
 import 'crop_avatar_style.dart';
@@ -12,23 +13,40 @@ import 'presentation/widgets/crop_avatar_body.dart';
 
 @RoutePage()
 class CropAvatarPage extends StatelessWidget {
-  const CropAvatarPage({
-    super.key,
-    required this.imagePath,
-  });
+  const CropAvatarPage({super.key, required this.imagePath});
 
   final String imagePath;
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider<CropAvatarBloc>(
-      create: (BuildContext context) =>
-          GetIt.I<CropAvatarBloc>()
-            ..add(CropAvatarInitialized(imagePath: imagePath)),
+      create: (BuildContext context) => GetIt.I<CropAvatarBloc>()
+        ..add(
+          CropAvatarInitialized(
+            imagePath: imagePath,
+            email: context.read<GlobalProfileBloc>().state.email,
+          ),
+        ),
       child: BlocListener<CropAvatarBloc, CropAvatarState>(
-        listenWhen: (CropAvatarState previous, CropAvatarState current) =>
-            current.popResultPath != null,
+        listenWhen: (CropAvatarState previous, CropAvatarState current) {
+          return current.popResultPath != null ||
+              (previous.errorMessage != current.errorMessage &&
+                  current.errorMessage != null);
+        },
         listener: (BuildContext context, CropAvatarState state) {
+          final String? errorMessage = state.errorMessage;
+          if (errorMessage != null && errorMessage.isNotEmpty) {
+            ScaffoldMessenger.of(context)
+              ..hideCurrentSnackBar()
+              ..showSnackBar(
+                SnackBar(
+                  content: Text(errorMessage),
+                  behavior: SnackBarBehavior.floating,
+                ),
+              );
+            return;
+          }
+
           final String path = state.popResultPath ?? '';
           if (path.isEmpty) {
             return;
@@ -50,13 +68,26 @@ class CropAvatarPage extends StatelessWidget {
                     icon: const Icon(Icons.close, size: 18),
                   ),
                   actions: <Widget>[
-                    TextButton(
-                      onPressed: () {
-                        context.read<CropAvatarBloc>().add(
-                          const CropAvatarSavePressed(),
+                    BlocBuilder<CropAvatarBloc, CropAvatarState>(
+                      buildWhen:
+                          (CropAvatarState previous, CropAvatarState current) {
+                            return previous.isSaving != current.isSaving;
+                          },
+                      builder: (BuildContext context, CropAvatarState state) {
+                        return TextButton(
+                          onPressed: state.isSaving
+                              ? null
+                              : () {
+                                  context.read<CropAvatarBloc>().add(
+                                    const CropAvatarSavePressed(),
+                                  );
+                                },
+                          child: Text(
+                            state.isSaving ? 'Saving...' : 'Save',
+                            style: CropAvatarTypography.action,
+                          ),
                         );
                       },
-                      child: Text('Save', style: CropAvatarTypography.action),
                     ),
                     const SizedBox(width: 8),
                   ],

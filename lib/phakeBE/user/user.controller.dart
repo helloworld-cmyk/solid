@@ -1,4 +1,4 @@
-import 'dart:io';
+import 'dart:typed_data';
 
 import 'user.service.dart';
 import 'user_repository.dart';
@@ -9,8 +9,11 @@ class UserController implements UserRepository {
   UserController(this.userService);
 
   @override
-  Future<String> saveAvatar({required String email, required File imageFile}) {
-    return userService.saveAvatar(email: email, imageFile: imageFile);
+  Future<String> saveAvatar({
+    required String email,
+    required Uint8List imageBytes,
+  }) {
+    return userService.saveAvatar(email: email, imageBytes: imageBytes);
   }
 
   @override

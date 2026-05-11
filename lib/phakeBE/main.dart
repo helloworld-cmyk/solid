@@ -1,4 +1,4 @@
-import 'dart:io';
+import 'dart:typed_data';
 import 'package:solid/phakeBE/auth/auth_repository.dart';
 import 'package:solid/phakeBE/auth/auth.service.dart';
 import 'package:solid/phakeBE/database/database.interface.dart';
@@ -51,8 +51,11 @@ class PhakeBE implements PhakeBEInterface {
   }
 
   @override
-  Future<String> saveAvatar({required String email, required File imageFile}) {
-    return user.saveAvatar(email: email, imageFile: imageFile);
+  Future<String> saveAvatar({
+    required String email,
+    required Uint8List imageBytes,
+  }) {
+    return user.saveAvatar(email: email, imageBytes: imageBytes);
   }
 
   @override

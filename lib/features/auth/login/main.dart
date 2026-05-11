@@ -4,6 +4,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:solid/core/bloc/auth/auth_bloc.dart';
 import 'package:solid/core/bloc/auth/auth_event.dart';
+import 'package:solid/core/bloc/changeprofile/profile_bloc.dart';
+import 'package:solid/core/bloc/changeprofile/profile_event.dart';
 import 'package:solid/core/di/injection.dart';
 import 'package:solid/core/router/app.router.gr.dart';
 
@@ -67,6 +69,9 @@ class LoginPage extends StatelessWidget {
               );
 
             if (state.isSuccess) {
+              context.read<GlobalProfileBloc>().add(
+                GlobalProfileSessionStarted(email: state.normalizedEmail),
+              );
               context.read<AuthBloc>().add(const AuthLoggedIn());
             }
 

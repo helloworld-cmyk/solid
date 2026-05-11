@@ -148,7 +148,7 @@ class AddressItem extends StatelessWidget {
                         vertical: 6,
                       ),
                       decoration: const BoxDecoration(
-                        color: const Color(0xFFFF6A2B),
+                        color: Color(0xFFFF6A2B),
                         borderRadius: BorderRadius.only(
                           bottomLeft: Radius.circular(18),
                           topLeft: Radius.circular(18),

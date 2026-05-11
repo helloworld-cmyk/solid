@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-
 class LocationMapSection extends StatelessWidget {
   const LocationMapSection({super.key});
 
@@ -53,7 +52,7 @@ class LocationMapSection extends StatelessWidget {
                               children: [
                                 const Icon(
                                   Icons.location_on,
-                                  color: const Color(0xFFFF6A2B),
+                                  color: Color(0xFFFF6A2B),
                                   size: 36,
                                 ),
                                 const SizedBox(height: 6),
@@ -78,7 +77,7 @@ class LocationMapSection extends StatelessWidget {
                       padding: EdgeInsets.only(bottom: 18),
                       child: Icon(
                         Icons.location_on,
-                        color: const Color(0xFFFF6A2B),
+                        color: Color(0xFFFF6A2B),
                         size: 40,
                       ),
                     ),
@@ -87,10 +86,7 @@ class LocationMapSection extends StatelessWidget {
                   Positioned.fill(
                     child: Material(
                       color: Colors.transparent,
-                      child: InkWell(
-                        onTap: () {
-                        },
-                      ),
+                      child: InkWell(onTap: () {}),
                     ),
                   ),
                 ],

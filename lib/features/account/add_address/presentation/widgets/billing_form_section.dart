@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-
 class BillingFormSection extends StatelessWidget {
   const BillingFormSection({
     super.key,
@@ -40,8 +39,6 @@ class BillingFormSection extends StatelessWidget {
   final ValueChanged<String> onCountryChanged;
   final ValueChanged<String> onPhoneCodeChanged;
 
-
-
   TextStyle get _labelStyle => GoogleFonts.poppins(
     fontSize: 12,
     fontWeight: FontWeight.w400,
@@ -73,15 +70,13 @@ class BillingFormSection extends StatelessWidget {
       contentPadding: const EdgeInsets.only(bottom: 10, top: 6),
       isDense: true,
       enabledBorder: const UnderlineInputBorder(
-        borderSide: BorderSide(color: const Color(0xFFEBEBEB), width: 1),
+        borderSide: BorderSide(color: Color(0xFFEBEBEB), width: 1),
       ),
       focusedBorder: const UnderlineInputBorder(
-        borderSide: BorderSide(color: const Color(0xFFFF6A2B), width: 1.5),
+        borderSide: BorderSide(color: Color(0xFFFF6A2B), width: 1.5),
       ),
     );
   }
-
-
 
   @override
   Widget build(BuildContext context) {
@@ -189,8 +184,6 @@ class BillingFormSection extends StatelessWidget {
   }
 }
 
-
-
 class _LabeledField extends StatelessWidget {
   const _LabeledField({
     required this.label,
@@ -243,9 +236,7 @@ class _CountryDropdown extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: const BoxDecoration(
-        border: Border(
-          bottom: BorderSide(color: const Color(0xFFEBEBEB), width: 1),
-        ),
+        border: Border(bottom: BorderSide(color: Color(0xFFEBEBEB), width: 1)),
       ),
       child: DropdownButtonHideUnderline(
         child: DropdownButton<String>(
@@ -253,7 +244,7 @@ class _CountryDropdown extends StatelessWidget {
           isExpanded: true,
           icon: const Icon(
             Icons.keyboard_arrow_down_rounded,
-            color: const Color(0xFF000000),
+            color: Color(0xFF000000),
             size: 22,
           ),
           style: inputStyle,
@@ -294,9 +285,7 @@ class _PhoneField extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: const BoxDecoration(
-        border: Border(
-          bottom: BorderSide(color: const Color(0xFFEBEBEB), width: 1),
-        ),
+        border: Border(bottom: BorderSide(color: Color(0xFFEBEBEB), width: 1)),
       ),
       child: Row(
         children: [
@@ -309,7 +298,7 @@ class _PhoneField extends StatelessWidget {
                 style: inputStyle,
                 icon: const Icon(
                   Icons.keyboard_arrow_down_rounded,
-                  color: const Color(0xFF000000),
+                  color: Color(0xFF000000),
                   size: 18,
                 ),
                 items: _phoneCodes.map((code) {

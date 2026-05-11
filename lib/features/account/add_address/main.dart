@@ -21,7 +21,8 @@ class AddAddressPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider<AddAddressBloc>(
-      create: (_) => GetIt.I<AddAddressBloc>()..add(const AddAddressFormStarted()),
+      create: (_) =>
+          GetIt.I<AddAddressBloc>()..add(const AddAddressFormStarted()),
       child: BlocConsumer<AddAddressBloc, AddAddressState>(
         listenWhen: (previous, current) =>
             previous.formStatus != current.formStatus ||
@@ -32,11 +33,15 @@ class AddAddressPage extends StatelessWidget {
             ScaffoldMessenger.of(
               context,
             ).showSnackBar(SnackBar(content: Text(state.formMessage!)));
-            context.read<AddAddressBloc>().add(const AddAddressFormFeedbackCleared());
+            context.read<AddAddressBloc>().add(
+              const AddAddressFormFeedbackCleared(),
+            );
           }
 
           if (state.formStatus == AddAddressFormStatus.success) {
-            context.read<AddAddressBloc>().add(const AddAddressFormFeedbackCleared());
+            context.read<AddAddressBloc>().add(
+              const AddAddressFormFeedbackCleared(),
+            );
             context.router.maybePop();
           }
         },
@@ -78,7 +83,7 @@ class AddAddressPage extends StatelessWidget {
                               const Padding(
                                 padding: EdgeInsets.symmetric(horizontal: 25),
                                 child: Divider(
-                                  color: const Color(0xFFEBEBEB),
+                                  color: Color(0xFFEBEBEB),
                                   thickness: 1,
                                   height: 1,
                                 ),
@@ -182,11 +187,18 @@ class AddAddressPage extends StatelessWidget {
                                             AddAddressDefaultChanged(value),
                                           );
                                         },
-                                        activeThumbColor: const Color(0xFFFFFFFF),
-                                        activeTrackColor: const Color(0xFFFF6A2B),
-                                        inactiveThumbColor: const Color(0xFFFFFFFF),
-                                        inactiveTrackColor:
-                                            const Color(0xFFCCCCCC),
+                                        activeThumbColor: const Color(
+                                          0xFFFFFFFF,
+                                        ),
+                                        activeTrackColor: const Color(
+                                          0xFFFF6A2B,
+                                        ),
+                                        inactiveThumbColor: const Color(
+                                          0xFFFFFFFF,
+                                        ),
+                                        inactiveTrackColor: const Color(
+                                          0xFFCCCCCC,
+                                        ),
                                         materialTapTargetSize:
                                             MaterialTapTargetSize.shrinkWrap,
                                       ),

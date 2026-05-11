@@ -12,6 +12,18 @@ sealed class GlobalProfileEvent {
   const GlobalProfileEvent();
 }
 
+final class GlobalProfileSessionStarted extends GlobalProfileEvent {
+  const GlobalProfileSessionStarted({required this.email});
+
+  final String email;
+}
+
+final class GlobalProfileAvatarRequested extends GlobalProfileEvent {
+  const GlobalProfileAvatarRequested({required this.email});
+
+  final String email;
+}
+
 final class GlobalProfileFieldChanged extends GlobalProfileEvent {
   const GlobalProfileFieldChanged({required this.field, required this.value});
 

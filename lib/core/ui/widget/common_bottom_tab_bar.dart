@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'common_avatar_image.dart';
+
 class CommonBottomTabData {
   const CommonBottomTabData({
     required this.icon,
@@ -124,6 +126,7 @@ class _CommonBottomTabItem extends StatelessWidget {
     final String badgeText = tab.badgeCount > 99
         ? '99+'
         : tab.badgeCount.toString();
+    final String avatarPath = tab.avatarImagePath ?? '';
 
     return InkWell(
       onTap: onTap,
@@ -141,23 +144,13 @@ class _CommonBottomTabItem extends StatelessWidget {
                   shape: BoxShape.circle,
                   border: Border.all(color: iconColor, width: 1.2),
                 ),
-                child: tab.avatarImagePath == null
-                    ? Icon(
-                        Icons.person,
-                        size: 14,
-                        color: avatarFallbackIconColor,
-                      )
-                    : ClipOval(
-                        child: Image.asset(
-                          tab.avatarImagePath!,
-                          fit: BoxFit.cover,
-                          errorBuilder: (_, _, _) => Icon(
-                            Icons.person,
-                            size: 14,
-                            color: avatarFallbackIconColor,
-                          ),
-                        ),
-                      ),
+                child: CommonAvatarImage(
+                  avatarPath: avatarPath,
+                  size: iconSize,
+                  fallbackIconColor: avatarFallbackIconColor,
+                  fallbackIconSize: 14,
+                  backgroundColor: Colors.transparent,
+                ),
               )
             else
               Stack(

@@ -39,6 +39,22 @@ class CommonAvatarImage extends StatelessWidget {
       );
     }
 
+    if (path.startsWith('http://') || path.startsWith('https://')) {
+      return Image.network(
+        path,
+        fit: BoxFit.cover,
+        errorBuilder: (_, _, _) => _buildFallback(),
+      );
+    }
+
+    if (path.startsWith('file://')) {
+      return Image.file(
+        File.fromUri(Uri.parse(path)),
+        fit: BoxFit.cover,
+        errorBuilder: (_, _, _) => _buildFallback(),
+      );
+    }
+
     return Image.file(
       File(path),
       fit: BoxFit.cover,

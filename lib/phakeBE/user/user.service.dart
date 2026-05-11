@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'dart:typed_data';
 
 import '../database/database.interface.dart';
 
@@ -7,11 +8,23 @@ class UserService {
 
   UserService({required this.database});
 
-  Future<String> saveAvatar({required String email, required File imageFile}) {
+  Future<String> saveAvatar({
+    required String email,
+    required Uint8List imageBytes,
+  }) {
     final normalizedEmail = email.trim().toLowerCase();
-    return database.saveAvatarFile(
+    if (normalizedEmail.isEmpty) {
+      throw ArgumentError.value(email, 'email', 'Email is required');
+    }
+
+    final user = database.findUserByEmail(normalizedEmail);
+    if (user == null) {
+      throw StateError('User not found for avatar update');
+    }
+
+    return database.saveAvatarBytes(
       normalizedEmail: normalizedEmail,
-      imageFile: imageFile,
+      imageBytes: imageBytes,
     );
   }
 

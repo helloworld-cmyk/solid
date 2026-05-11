@@ -1,7 +1,10 @@
-import 'dart:io';
+import 'dart:typed_data';
 
 abstract class UserRepository {
-  Future<String> saveAvatar({required String email, required File imageFile});
+  Future<String> saveAvatar({
+    required String email,
+    required Uint8List imageBytes,
+  });
 
   Future<String?> getAvatar({required String email});
 }

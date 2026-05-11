@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'dart:typed_data';
 import 'package:path/path.dart' as p;
 import 'package:path_provider/path_provider.dart';
 import 'package:realm/realm.dart';
@@ -65,9 +66,9 @@ class RealmService implements AuthDatabase {
   }
 
   @override
-  Future<String> saveAvatarFile({
+  Future<String> saveAvatarBytes({
     required String normalizedEmail,
-    required File imageFile,
+    required Uint8List imageBytes,
   }) async {
     final appDir = await getApplicationDocumentsDirectory();
     final avatarDir = Directory(p.join(appDir.path, 'avatars'));
@@ -76,15 +77,13 @@ class RealmService implements AuthDatabase {
       await avatarDir.create(recursive: true);
     }
 
-    final safeEmail =
-        normalizedEmail.replaceAll(RegExp(r'[^a-z0-9]'), '_');
-    final extension = p.extension(imageFile.path).isEmpty
-        ? '.jpg'
-        : p.extension(imageFile.path);
-    final fileName = 'avatar_$safeEmail$extension';
+    final safeEmail = normalizedEmail.replaceAll(RegExp(r'[^a-z0-9]'), '_');
+    final timestamp = DateTime.now().microsecondsSinceEpoch;
+    final fileName = 'avatar_${safeEmail}_$timestamp.jpg';
     final fullPath = p.join(avatarDir.path, fileName);
 
-    final savedFile = await imageFile.copy(fullPath);
+    final savedFile = File(fullPath);
+    await savedFile.writeAsBytes(imageBytes, flush: true);
 
     _persistAvatarPathToRealm(
       normalizedEmail: normalizedEmail,
